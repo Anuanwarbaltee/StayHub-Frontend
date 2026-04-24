@@ -8,10 +8,17 @@ type ApiOptions = RequestInit & {
 const API_URL = "http://localhost:8000/api/v1/";
 
 
-export async function apiFetch<T>(
+type ApiResponse<T> = {
+    success: boolean;
+    message?: string;
+    data?: T;
+    [key: string]: any;
+};
+
+export async function apiFetch<T = any>(
     endpoint: string,
     options: ApiOptions = {}
-): Promise<T> {
+): Promise<ApiResponse<T>> {
     const { auth = false, isformdata = false, headers, ...rest } = options;
 
     const makeRequest = async () => {
@@ -25,21 +32,36 @@ export async function apiFetch<T>(
         });
     };
 
-    let res = await makeRequest();
+    try {
 
-    // ACCESS TOKEN EXPIRED
-    if (res.status === 401 && auth) {
-        const newToken = await refreshAccessToken();
-        // retry original request with new token
-        res = await makeRequest();
+        let res = await makeRequest();
+
+        if (res.status === 401 && auth) {
+            await refreshAccessToken();
+            res = await makeRequest();
+        }
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            return {
+                success: false,
+                message: data?.message || "Request failed",
+                ...data,
+            };
+        }
+
+        return {
+            success: true,
+            ...data,
+        };
+
+    } catch (error: any) {
+        return {
+            success: false,
+            message: error.message || "Network error",
+        };
     }
-
-    if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.message || "API Error");
-    }
-
-    return res.json();
 }
 
 

@@ -13,8 +13,6 @@ interface User {
 
 interface UserState {
     user: User;
-    accessToken: string;
-    refreshToken: string;
 }
 
 const initialState: UserState = {
@@ -27,8 +25,6 @@ const initialState: UserState = {
         phone: "",
         role: "",
     },
-    accessToken: "",
-    refreshToken: "",
 };
 
 const userSlice = createSlice({
@@ -41,13 +37,6 @@ const userSlice = createSlice({
                 state.user = { ...state.user, ...action.payload.user };
             }
 
-            if (action.payload.accessToken) {
-                state.accessToken = action.payload.accessToken;
-            }
-
-            if (action.payload.refreshToken) {
-                state.refreshToken = action.payload.refreshToken;
-            }
         },
     },
 });

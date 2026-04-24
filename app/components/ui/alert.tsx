@@ -8,6 +8,7 @@ const GlobalAlert = () => {
     const { type, message, isVisible } = useAppSelector((state) => state.alert);
     console.log(type, message, isVisible)
     useEffect(() => {
+
         if (isVisible) {
             const timer = setTimeout(() => dispatch(hideAlert()), 5000);
             return () => clearTimeout(timer);
@@ -37,3 +38,5 @@ const GlobalAlert = () => {
         </div>
     );
 };
+
+export default GlobalAlert

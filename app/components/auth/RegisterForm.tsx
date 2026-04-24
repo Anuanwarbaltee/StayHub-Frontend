@@ -35,7 +35,7 @@ export default function RegisterForm() {
     })
     try {
 
-      await apiFetch("hotel/upload-files", {
+      await apiFetch("user/register", {
         method: "POST",
         auth: false,
         body: formData,

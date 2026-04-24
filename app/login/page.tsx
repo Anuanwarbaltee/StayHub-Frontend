@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Shield } from 'lucide-react';
 import LoginForm from '../components/auth/LoginForm';
+import GlobalAlert from '../components/ui/alert';
 
 export default function LoginPage() {
     return (
@@ -37,6 +38,7 @@ export default function LoginPage() {
                     </p>
                 </div>
             </div>
+            {/* <GlobalAlert /> */}
         </div>
     );
 }

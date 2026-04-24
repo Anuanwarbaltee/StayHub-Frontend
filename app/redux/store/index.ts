@@ -2,6 +2,8 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import alertReducer from '../reducers/alertSlice';
+import filterReducer from '../reducers/filterSlice';
+import userReducer from '../reducers/userSlice';
 
 // for Next.js SSR
 const createNoopStorage = () => {
@@ -31,7 +33,9 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  alert: alertReducer
+  alert: alertReducer,
+  bookingFilters: filterReducer,
+  user: userReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

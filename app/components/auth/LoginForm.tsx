@@ -43,13 +43,11 @@ export default function LoginForm() {
                 dispatch(
                     updateUser({
                         user: res?.data?.user,
-                        accessToken: res?.data?.accessToken,
-                        refreshToken: res?.data?.refreshToken
                     })
                 )
                 // window.location.href = "/";
             } else {
-                setError(res.Error)
+                setError(res.message || "Invalid email or password. Please try again.");
             }
         } catch (err) {
             setError("Invalid email or password. Please try again.");
