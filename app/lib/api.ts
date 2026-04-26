@@ -36,7 +36,7 @@ export async function apiFetch<T = any>(
 
         let res = await makeRequest();
 
-        if (res.status === 401 && auth) {
+        if (res.status === 401) {
             await refreshAccessToken();
             res = await makeRequest();
         }

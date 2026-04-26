@@ -27,6 +27,7 @@ export interface HotelListItem {
     createdAt: string;
     updatedAt: string;
     room: RoomListingItems,
+    isActive: boolean;
 }
 
 export type HotelMainPageData = {

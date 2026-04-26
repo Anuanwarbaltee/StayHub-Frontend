@@ -105,7 +105,6 @@ export default function AddHotelForm() {
 
                 let res = await apiFetch("hotel/add", {
                     method: "POST",
-                    auth: true,
                     body: JSON.stringify(hotelForm),
                 });
                 if (res.success) {
